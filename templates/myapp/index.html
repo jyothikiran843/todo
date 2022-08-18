@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+    <p>{{request.user}}</p>
+    <div class="container">
+        <ul class="list-group">
+            {% for task in tasks %}
+            <li class="list-group-item  justify-content-between d-flex h4">{{task}}<a href="{% url 'delete' task.pk %}" class="btn btn-danger">Delete</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <br><br>
+    <div class="btn-group flex-fill justify-content-between container">
+        <a class="btn btn-danger" href="{% url 'logout' %}">LogOut</a>
+        <a class="btn btn-primary" href="{% url 'create' %}">Add Task</a>
+    </div>
+    {% else %}
+    <p>Please LogIn</p>
+    <p>Please Login to Display Your Tasks or sign up to create tasks</p>
+    <br><br>
+    <a class="btn btn-primary" href="{% url 'login' %}">LogIn</a>
+    {% endif %}
+{% endblock %}
